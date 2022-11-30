@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace CCFD.Controllers
+{
+    public class ErrorController : Controller
+    {
+        // GET: Error
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ViewResult ViewNotFoundPage()
+        {
+            //Response.BufferOutput = true;
+            //Response.StatusCode = 404;
+            //Response.Headers.Remove("Server");
+            return View();
+        }
+
+        public ViewResult ViewInternalServerErrorPage()
+        {
+            //Response.BufferOutput = true;
+            //Response.StatusCode = 500;
+            //Response.Headers.Remove("Server");
+            return View();
+        }
+
+        public ViewResult ViewPermissionErrorPage()
+        {
+            //Response.BufferOutput = true;
+            //Response.StatusCode = 403;
+            //Response.Headers.Remove("Server");
+            return View();
+        }
+    }
+}
