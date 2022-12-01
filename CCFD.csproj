@@ -198,6 +198,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\TransactionStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,6 +279,7 @@
     <Content Include="Views\Transaction\Authenticate.cshtml" />
     <Content Include="Views\Transaction\AuthApprove.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\Generate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
