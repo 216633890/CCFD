@@ -58,7 +58,14 @@ namespace CCFD.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+
+            LoginViewModel loginViewModel = new LoginViewModel();
+
+            loginViewModel.Email = "";
+            loginViewModel.Password = "";
+            loginViewModel.RememberMe = false;
+
+            return View(loginViewModel);
         }
 
         //
@@ -141,7 +148,13 @@ namespace CCFD.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+
+            registerViewModel.Email = "";
+            registerViewModel.Password = "";
+            registerViewModel.ConfirmPassword = "";
+
+            return View(registerViewModel);
         }
 
         //
@@ -165,7 +178,7 @@ namespace CCFD.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //return RedirectToAction("Authorize", "Transaction", new { userEmail = model.Email });
+                    //return RedirectToAction("Authorize", "Transaction");
                     Session["AuthenticateStatus"] = "ENROLL";
                     return RedirectToAction("Authenticate", "Transaction");
                 }
