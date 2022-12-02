@@ -40,12 +40,16 @@ namespace CCFD.Controllers
 
                 if (reportViewModel.FullReport&&!reportViewModel.FraudReport&&!reportViewModel.CleanReport)
                 {
+                    ViewBag.Message = "Full Transaction Data Report.";
+
                     using (var ccfdEntities = new CCFDEntities()) {
                         transaction = ccfdEntities.transactions.ToList();
                     }
                 }
                 else if (reportViewModel.FraudReport&&!reportViewModel.FullReport&&!reportViewModel.CleanReport)
                 {
+                    ViewBag.Message = "Fraud Transaction Data Report.";
+
                     using (var ccfdEntities = new CCFDEntities())
                     {
                         transaction = ccfdEntities.transactions
@@ -55,6 +59,8 @@ namespace CCFD.Controllers
                 }
                 else if (reportViewModel.CleanReport&&!reportViewModel.FullReport&&!reportViewModel.FraudReport)
                 {
+                    ViewBag.Message = "Passed Transaction Data Report.";
+
                     using (var ccfdEntities = new CCFDEntities())
                     {
                         transaction = ccfdEntities.transactions
