@@ -6,6 +6,7 @@ using System.Web;
 
 namespace CCFD.Models
 {
+    // Compute transaction legitimacy
     public class CCFD_ML
     {
         public string currentUser { get; set; }
@@ -18,6 +19,7 @@ namespace CCFD.Models
 
         public CCFD_ML() { }
 
+        // Check location matches with previous successful transaction 
         public bool CurrentToPrevLocationMatch()
         {
             using (var ccfdEntities = new CCFDEntities())
@@ -36,6 +38,7 @@ namespace CCFD.Models
             return false;
         }
 
+        // Check current location if ever visited before
         public bool LocationEverVisited()
         {
             using (var ccfdEntities = new CCFDEntities())
@@ -53,6 +56,7 @@ namespace CCFD.Models
             return false;
         }
 
+        // Check items if ever bought before, user spending habit
         public bool ItemEverBought()
         {
             using (var ccfdEntities = new CCFDEntities())

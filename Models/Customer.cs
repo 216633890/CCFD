@@ -5,6 +5,7 @@ using System.Web;
 
 namespace CCFD.Models
 {
+    // Customer model
     public class Customer
     {
         public int Id { get; set; }

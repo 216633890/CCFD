@@ -5,12 +5,12 @@ using System.Web;
 
 namespace CCFD.Models
 {
+    // Transaction model
     public class Transaction
     {
         public int Id { get; set; }
         public int TransId { get; set; }
         public string MerchantId { get; set; }
-        //public int ItemsId { get; set; }
         public string Location { get; set; }
         public double TotalAmount { get; set; }
         public DateTime Date { get; set; }
