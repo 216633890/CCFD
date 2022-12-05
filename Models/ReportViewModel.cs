@@ -6,6 +6,7 @@ using System.Web;
 
 namespace CCFD.Models
 {
+    // Report model
     public class ReportViewModel
     {
         [Display(Name = "Full Report")]

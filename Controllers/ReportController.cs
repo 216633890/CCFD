@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace CCFD.Controllers
 {
-    //[Authorize(Users = "Support123@ccfd.com")]
     [Authorize]
     public class ReportController : Controller
     {
         // GET: Report
+        // Load report selection view
         public ActionResult Index()
         {
             try
@@ -31,6 +31,7 @@ namespace CCFD.Controllers
             }
         }
 
+        // Generate selected report
         [HttpPost]
         public ActionResult Generate(ReportViewModel reportViewModel)
         {
@@ -38,7 +39,7 @@ namespace CCFD.Controllers
             {
                 List<Transaction> transaction = new List<Transaction>();
 
-                if (reportViewModel.FullReport&&!reportViewModel.FraudReport&&!reportViewModel.CleanReport)
+                if (reportViewModel.FullReport&&!reportViewModel.FraudReport&&!reportViewModel.CleanReport) // Verify one (Full) report selected
                 {
                     ViewBag.Message = "Full Transaction Data Report.";
 
@@ -46,7 +47,7 @@ namespace CCFD.Controllers
                         transaction = ccfdEntities.transactions.ToList();
                     }
                 }
-                else if (reportViewModel.FraudReport&&!reportViewModel.FullReport&&!reportViewModel.CleanReport)
+                else if (reportViewModel.FraudReport&&!reportViewModel.FullReport&&!reportViewModel.CleanReport) // Verify one (Fraud) report selected
                 {
                     ViewBag.Message = "Fraud Transaction Data Report.";
 
@@ -57,7 +58,7 @@ namespace CCFD.Controllers
                             .ToList();
                     }
                 }
-                else if (reportViewModel.CleanReport&&!reportViewModel.FullReport&&!reportViewModel.FraudReport)
+                else if (reportViewModel.CleanReport&&!reportViewModel.FullReport&&!reportViewModel.FraudReport) // Verify one (Clean) report selected
                 {
                     ViewBag.Message = "Passed Transaction Data Report.";
 
@@ -68,7 +69,7 @@ namespace CCFD.Controllers
                             .ToList();
                     }
                 }
-                else {
+                else { // Return to report select if non or multiple reports were selected
                     return RedirectToAction("Index", "Report");
                 }
 

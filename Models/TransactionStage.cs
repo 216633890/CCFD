@@ -5,6 +5,7 @@ using System.Web;
 
 namespace CCFD.Models
 {
+    // API transaction stage receiver
     public class TransactionStage
     {
         public string Id { get; set; }

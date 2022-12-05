@@ -16,12 +16,14 @@ namespace CCFD.Controllers
             return View();
         }
 
+        // Return transaction to authorize or no trnasaction for logged in user
         public ActionResult Authorize()
         {
             try
             {
-                Transaction transaction = new Transaction();
+                Transaction transaction = new Transaction(); // Initialize new transaction model
 
+                // Load transaction model with recent transaction to evaluate
                 using (var ccfdEntities = new CCFDEntities())
                 {
                     transaction = ccfdEntities.transactions
@@ -29,6 +31,7 @@ namespace CCFD.Controllers
                         .OrderBy(o => o.Id).FirstOrDefault();
                 }
 
+                // Return no transaction if transaction model is null
                 if (transaction == null) {
                     return RedirectToAction("Index", "Transaction");
                 }
@@ -74,6 +77,7 @@ namespace CCFD.Controllers
 
                     Item item = new Item();
                     
+                    // Loop through items and add to item model to be persisted against database
                     for (int i = 0; i < itemsCount; i++)
                     {
                         if (i!=itemsCount-1)
@@ -103,6 +107,7 @@ namespace CCFD.Controllers
 
                     ccfdEntities.transactions.Add(transaction);
 
+                    // Check if customer exist before adding new one
                     if (ccfdEntities.customers.Where(w => w.AccountId == customer.AccountId).Count() == 0) {
                         ccfdEntities.customers.Add(customer);
                     }
@@ -123,10 +128,12 @@ namespace CCFD.Controllers
         {
             try
             {
+                // Check if transaction is valid using CCFD ML model
                 if (IsValid())
                 {
                     Transaction transaction = new Transaction();
 
+                    // Mark transaction status approved if CCFD ML model return true
                     using (var ccfdEntities = new CCFDEntities())
                     {
                         transaction = ccfdEntities.transactions
@@ -143,9 +150,9 @@ namespace CCFD.Controllers
                     return View();
                 }
 
-                Session["AuthenticateStatus"] = "YES";
+                Session["AuthenticateStatus"] = "YES"; // Fraudulent transaction, set http base session variable authentication status to yes
 
-                return RedirectToAction("Authenticate", "Transaction");
+                return RedirectToAction("Authenticate", "Transaction"); // Redirect to authentication
             }
             catch (Exception ex)
             {
@@ -154,11 +161,12 @@ namespace CCFD.Controllers
             }
         }
 
+        // Succesfully authenticated, redirected to auth aprrove
         public ActionResult AuthApprove(string uid)
         {
             try
             {
-                if (uid == User.Identity.Name)
+                if (uid == User.Identity.Name) // Check authenticated user id matches
                 {
                     Transaction transaction = new Transaction();
 
@@ -187,12 +195,14 @@ namespace CCFD.Controllers
             }
         }
 
+        // User decline transaction
         public ActionResult Decline()
         {
             try
             {
                 Transaction transaction = new Transaction();
 
+                // Mark transaction status to decline
                 using (var ccfdEntities = new CCFDEntities())
                 {
                     transaction = ccfdEntities.transactions
@@ -234,6 +244,7 @@ namespace CCFD.Controllers
             }
         }
 
+        // Failed transaction
         public ActionResult Failed()
         {
             try
@@ -262,6 +273,7 @@ namespace CCFD.Controllers
             }
         }
 
+        // Assess transaction validity
         public bool IsValid()
         {
             try
